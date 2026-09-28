@@ -67,7 +67,7 @@ yang didokumentasikan terbuka.*
 ```
 FILE SOURCES (CSV/XLSX) → INGESTION → VALIDATION → PostgreSQL
                                                      ↓
-              ┌──────────── DATA QUALITY ←── AI / ML modellen ──┐
+              ┌──────────── DATA QUALITY ←── AI / ML models ────┐
               ↓                                                 ↓
         REVIEW QUEUE (Board app) ──→ HUMAN REVIEW ──→ AUDIT LOG ──→ FEEDBACK
 ```
