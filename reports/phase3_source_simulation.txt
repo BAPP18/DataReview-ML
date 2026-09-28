@@ -1,0 +1,9 @@
+Phase 3: Canonical Master + Source Simulation
+============================================================
+
+Master projects: 500 rows
+CRM export: 500 rows
+ERP export: 500 rows
+Partner export: 500 rows
+Document metadata: 500 rows
+Corruption operations: 100

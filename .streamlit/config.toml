@@ -1,0 +1,11 @@
+# Default Streamlit theme (in-app Light/Dark toggle in the top bar can override at runtime).
+[theme]
+base = "light"
+primaryColor = "#1a7f5a"
+backgroundColor = "#f4f5f6"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#16191d"
+font = "sans serif"
+
+[server]
+headless = true

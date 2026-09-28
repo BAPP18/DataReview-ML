@@ -1,0 +1,11 @@
+Phase 10-11: PostgreSQL + File Ingestion
+============================================================
+
+PostgreSQL schema: sql/schema.sql
+Migration script: sql/migrate.py
+Migration status: FAILED
+
+Tables: projects, source_records, entity_matches, documents,
+  validation_results, anomalies, review_queue, review_decisions,
+  model_predictions, reviewer_feedback, audit_logs, model_versions,
+  ingestion_runs

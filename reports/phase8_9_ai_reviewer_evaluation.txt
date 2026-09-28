@@ -1,0 +1,57 @@
+Phase 8-9: AI Reviewer + Evaluation
+============================================================
+
+AI Reviewer Output:
+  Total records: 5024
+  Classification distribution:
+classification
+ENTITY_MISMATCH          4206
+STATUS_CONFLICT           460
+NUMERIC_CONFLICT          227
+FORMATTING_DIFFERENCE     131
+Name: count, dtype: int64
+
+Final Evaluation:
+  {
+  "model_versions": {
+    "entity_matching": "v1.0 (Logistic Regression + Random Forest)",
+    "anomaly_detection": "v1.0 (Isolation Forest + Rolling MAD)"
+  },
+  "dataset_sources": {
+    "solar_power_generation": "Kaggle (anikannal/solar-power-generation-data)",
+    "febrl4": "Python Record Linkage Toolkit",
+    "canonical_master": "Synthetic (Phase 3)"
+  },
+  "split_strategy": "70/30 train/test split with stratification",
+  "metrics": {
+    "logistic_regression": {
+      "precision": 0.728,
+      "recall": 1.0,
+      "f1": 0.843,
+      "roc_auc": 0.833
+    },
+    "random_forest": {
+      "precision": 0.737,
+      "recall": 1.0,
+      "f1": 0.849,
+      "roc_auc": 0.842
+    }
+  },
+  "thresholds": {
+    "auto_match": 0.95,
+    "manual_review": 0.5,
+    "non_match": 0.0
+  },
+  "error_analysis": {
+    "false_positives": 334,
+    "false_negatives": 0,
+    "notes": "High recall but moderate precision. Many false positives due to similar names/addresses."
+  },
+  "limitations": [
+    "Synthetic canonical master data",
+    "No real solar-domain entity resolution ground truth",
+    "FEBRL4 is synthetic, not solar-domain",
+    "Epoch 2026 not available (competition ended)"
+  ],
+  "timestamp": "2026-09-27T15:00:52.960012"
+}

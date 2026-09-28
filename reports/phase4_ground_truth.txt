@@ -1,0 +1,19 @@
+Phase 4: Ground Truth + Pairs
+============================================================
+
+Master projects: 500 rows
+Record map: 2000 rows
+Positive pairs: 2982
+Negative pairs: 1984
+Hard negative pairs: 58
+Total pairs: 5024
+
+Class balance:
+label
+1    2982
+0    2042
+Name: count, dtype: int64
+
+Leakage checks:
+  Negatives with same master_id: 0 (should be 0)
+  Positives with different master_id: 0 (should be 0)

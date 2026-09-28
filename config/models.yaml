@@ -1,0 +1,26 @@
+# Single authoritative source for model + routing thresholds.
+# Read by: notebooks (06 threshold tuning reference), src/, app/dashboard.py
+# Do NOT duplicate these numbers in code, SQL, or UI.
+
+model:
+  name: entity_matcher
+  version: v1.0
+  type: logistic_regression
+  feature_schema_version: v1.0
+  trained_on: synthetic canonical master pairs (notebook 06)
+
+features:
+  - customer_similarity
+  - installer_similarity
+  - address_similarity
+  - city_match
+  - state_match
+  - capacity_diff
+  - status_match
+
+thresholds:
+  # P(match) >= auto_match  -> AUTO_MATCH (no human needed)
+  auto_match: 0.90
+  # P(match) < manual_review_low -> NON_MATCH, else MANUAL_REVIEW
+  manual_review_low: 0.30
+  note: initial operating points; re-calibrate on validation split (notebook 06) before any real use

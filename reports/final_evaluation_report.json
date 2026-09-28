@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-09-27T15:50:20.752697",
+  "model_versions": {
+    "entity_matching": {
+      "logistic_regression": "v1.0 (trained on synthetic canonical master)",
+      "random_forest": "v1.0 (trained on synthetic canonical master)"
+    },
+    "anomaly_detection": {
+      "isolation_forest": "v1.0 (contamination=0.05)",
+      "rolling_mad": "v1.0 (window=96, threshold=3.5)"
+    },
+    "ai_reviewer": {
+      "rule_based_classifier": "v1.0 (deterministic rules on pairwise features)"
+    }
+  },
+  "dataset_sources": {
+    "solar_power_generation": {
+      "source": "Kaggle (anikannal/solar-power-generation-data)",
+      "license": "Verify Kaggle terms",
+      "rows": 139937,
+      "usage": "Anomaly detection, time-series analysis"
+    },
+    "febrl4": {
+      "source": "Python Record Linkage Toolkit",
+      "license": "Public domain (synthetic benchmark)",
+      "rows": 10000,
+      "usage": "Entity resolution benchmark"
+    },
+    "canonical_master": {
+      "source": "Synthetic (generated in Phase 3)",
+      "license": "N/A",
+      "rows": 500,
+      "usage": "Domain modeling, source simulation"
+    }
+  },
+  "split_strategy": {
+    "method": "Entity-level split (train/validation/test)",
+    "ratio": "70/15/15",
+    "stratification": "By label (match/non-match)",
+    "note": "Same entity does not appear in both train and test sets"
+  },
+  "metrics": {
+    "logistic_regression": {
+      "precision": 0.728,
+      "recall": 1.0,
+      "f1": 0.843,
+      "roc_auc": 0.833
+    },
+    "random_forest": {
+      "precision": 0.737,
+      "recall": 1.0,
+      "f1": 0.849,
+      "roc_auc": 0.842
+    }
+  },
+  "thresholds": {
+    "auto_match": 0.95,
+    "manual_review": 0.5,
+    "non_match": 0.0,
+    "note": "Thresholds calibrated on validation set. Adjust based on business risk tolerance."
+  },
+  "limitations": [
+    "Synthetic canonical master data (not real operational data)",
+    "No real solar-domain entity resolution ground truth",
+    "FEBRL4 is synthetic, not solar-domain",
+    "Epoch 2026 dataset not available (competition ended)",
+    "ML models trained on limited synthetic features",
+    "High recall but moderate precision (many false positives)"
+  ]
+}

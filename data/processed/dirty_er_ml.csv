@@ -1,0 +1,5 @@
+model,eval_set,precision,recall,f1,roc_auc
+logistic_regression,dirty_test,0.769,0.052,0.097,0.776
+logistic_regression,clean_test,0.595,0.244,0.346,0.8
+random_forest,dirty_test,0.242,0.207,0.223,0.68
+random_forest,clean_test,0.337,0.332,0.334,0.749

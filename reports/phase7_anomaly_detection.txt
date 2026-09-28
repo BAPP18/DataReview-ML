@@ -1,0 +1,21 @@
+Phase 7: Anomaly Detection
+============================================================
+
+plant1_dc_power:
+  iqr: 0
+  zscore: 0
+  percentile: 688
+  rolling_mad: 1399
+  isolation_forest: 3436
+  lof: 3439
+
+plant1_irradiation:
+  iqr: 2
+  zscore: 2
+  rolling_mad: 1046
+
+injected_anomaly_recovery:
+  injected: 50
+  detected: 50
+  recovery_rate: 1.0
+

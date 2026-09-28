@@ -1,0 +1,5 @@
+series,labeled_anomalies,roll_precision,roll_recall,roll_f1,iso_precision,iso_recall,iso_f1
+machine_temp,2268,0.192,0.037,0.062,0.508,0.507,0.508
+nyc_taxi,1035,0.0,0.0,0.0,0.146,0.146,0.146
+ec2_cpu,402,0.159,0.017,0.031,0.133,0.132,0.132
+grok,465,0.173,0.366,0.234,0.108,0.105,0.107

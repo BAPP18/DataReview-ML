@@ -1,0 +1,902 @@
+[
+  {
+    "source": "crm",
+    "row_index": 428,
+    "field": "city",
+    "old_value": "Los Angeles",
+    "new_value": "Los Angeles",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 398,
+    "field": "customer_name",
+    "old_value": "Customer 399",
+    "new_value": "CUSTOMER 399",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 346,
+    "field": "status",
+    "old_value": "On Hold",
+    "new_value": "ON HOLD",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 277,
+    "field": "project_id",
+    "old_value": "PRJ-2024-00278",
+    "new_value": "PRJ-2024-00278",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 317,
+    "field": "city",
+    "old_value": "Jacksonville",
+    "new_value": "Jacksonville",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 251,
+    "field": "installer",
+    "old_value": "SunStream Energy",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 203,
+    "field": "system_size_kw",
+    "old_value": "9.6",
+    "new_value": "7.887928977748931",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 409,
+    "field": "state",
+    "old_value": "MA",
+    "new_value": "MA",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 257,
+    "field": "city",
+    "old_value": "Reno",
+    "new_value": "Reno",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 234,
+    "field": "customer_name",
+    "old_value": "Customer 235",
+    "new_value": "Customer 235",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 352,
+    "field": "project_id",
+    "old_value": "PRJ-2024-00353",
+    "new_value": "PRJ-2024-00353",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 194,
+    "field": "customer_name",
+    "old_value": "Customer 195",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 185,
+    "field": "address",
+    "old_value": "3615 Elm Blvd",
+    "new_value": "3615 Elm Blvd",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 280,
+    "field": "address",
+    "old_value": "9743 Elm St",
+    "new_value": "9743 Elm St",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 137,
+    "field": "status",
+    "old_value": "Pending",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 187,
+    "field": "installer",
+    "old_value": "SunVolt Energy",
+    "new_value": "SunVolt Energy",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 107,
+    "field": "state",
+    "old_value": "AZ",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 186,
+    "field": "state",
+    "old_value": "FL",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 230,
+    "field": "installer",
+    "old_value": "SunStream Energy",
+    "new_value": "SunStream Energy",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 294,
+    "field": "system_size_kw",
+    "old_value": "6.5",
+    "new_value": "6.5",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 411,
+    "field": "system_size_kw",
+    "old_value": "13.2",
+    "new_value": "13.2",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 100,
+    "field": "installer",
+    "old_value": "SunPeak Solar LLC",
+    "new_value": "SunPeak Solar LLC",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 242,
+    "field": "project_id",
+    "old_value": "PRJ-2024-00243",
+    "new_value": "PRJ-2024-00243",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 215,
+    "field": "status",
+    "old_value": "Pending",
+    "new_value": "Pending",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "crm",
+    "row_index": 457,
+    "field": "updated_at",
+    "old_value": "2026-09-27 15:48:41",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 402,
+    "field": "installed_capacity",
+    "old_value": "7.1",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 128,
+    "field": "region",
+    "old_value": "FL",
+    "new_value": "fl",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 353,
+    "field": "project_reference",
+    "old_value": "PRJ-2024-00354",
+    "new_value": "prj-2024-00354",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 130,
+    "field": "installed_capacity",
+    "old_value": "7.8",
+    "new_value": "7.8",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 171,
+    "field": "customer",
+    "old_value": "Customer 172",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 184,
+    "field": "region",
+    "old_value": "NV",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 176,
+    "field": "customer_ref",
+    "old_value": "Customer 177",
+    "new_value": "Customer 177",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 179,
+    "field": "record_status",
+    "old_value": "SUSPENDED",
+    "new_value": "SUSPENDED",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 295,
+    "field": "region",
+    "old_value": "TX",
+    "new_value": "TX",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 399,
+    "field": "customer",
+    "old_value": "Customer 400",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 166,
+    "field": "record_status",
+    "old_value": "ACTIVE",
+    "new_value": "ACTIVE",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.406318"
+  },
+  {
+    "source": "erp",
+    "row_index": 455,
+    "field": "customer_ref",
+    "old_value": "Customer 456",
+    "new_value": "Customer 456",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 237,
+    "field": "record_status",
+    "old_value": "PENDING",
+    "new_value": "PENDING",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 444,
+    "field": "project_reference",
+    "old_value": "PRJ-2024-00445",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 215,
+    "field": "record_status",
+    "old_value": "PENDING",
+    "new_value": "PENDING",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 40,
+    "field": "project_reference",
+    "old_value": "PRJ-2024-00041",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 116,
+    "field": "customer",
+    "old_value": "Customer 117",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 334,
+    "field": "customer",
+    "old_value": "Customer 335",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 309,
+    "field": "record_status",
+    "old_value": "SUSPENDED",
+    "new_value": "SUSPENDED",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 454,
+    "field": "installed_capacity",
+    "old_value": "14.5",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 382,
+    "field": "region",
+    "old_value": "NV",
+    "new_value": "NV",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 85,
+    "field": "project_reference",
+    "old_value": "PRJ-2024-00086",
+    "new_value": "prj-2024-00086",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.419747"
+  },
+  {
+    "source": "erp",
+    "row_index": 120,
+    "field": "record_status",
+    "old_value": "SUSPENDED",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "erp",
+    "row_index": 481,
+    "field": "record_status",
+    "old_value": "SUSPENDED",
+    "new_value": "suspended",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "erp",
+    "row_index": 203,
+    "field": "customer_ref",
+    "old_value": "Customer 204",
+    "new_value": "customer 204",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 449,
+    "field": "site_address",
+    "old_value": "5534 Oak Ave",
+    "new_value": "5534 oak ave",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 203,
+    "field": "completion_status",
+    "old_value": "Pending",
+    "new_value": "pending",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 316,
+    "field": "installer_name",
+    "old_value": "BrightSky Energy",
+    "new_value": "BRIGHTSKY ENERGY",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 453,
+    "field": "site_address",
+    "old_value": "8840 Maple St",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 117,
+    "field": "installer_name",
+    "old_value": "SunVolt Energy",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 226,
+    "field": "installer_name",
+    "old_value": "SunVolt Energy",
+    "new_value": "SunVolt Energy",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 269,
+    "field": "installer_name",
+    "old_value": "Lumina Solar Co",
+    "new_value": "lumina solar co",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 182,
+    "field": "capacity",
+    "old_value": "12.3",
+    "new_value": "12.3",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 499,
+    "field": "completion_status",
+    "old_value": "In Progress",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 280,
+    "field": "site_address",
+    "old_value": "9743 Elm St",
+    "new_value": "9743 Elm St",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 496,
+    "field": "completion_status",
+    "old_value": "On Hold",
+    "new_value": "On Hold",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 302,
+    "field": "completion_status",
+    "old_value": "Completed",
+    "new_value": "completed",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 383,
+    "field": "completion_status",
+    "old_value": "Pending",
+    "new_value": "pending",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 327,
+    "field": "completion_status",
+    "old_value": "Pending",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 465,
+    "field": "capacity",
+    "old_value": "7.4",
+    "new_value": "7.4",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 412,
+    "field": "external_reference",
+    "old_value": "PRJ-2024-00413",
+    "new_value": "PRJ-2024-00413",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 187,
+    "field": "site_address",
+    "old_value": "2952 Cedar Ln",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 79,
+    "field": "capacity",
+    "old_value": "3.9",
+    "new_value": "3.9",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 417,
+    "field": "installer_name",
+    "old_value": "VoltEdge Solar",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 146,
+    "field": "site_address",
+    "old_value": "3730 Cedar St",
+    "new_value": "3730 CEDAR ST",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 251,
+    "field": "site_address",
+    "old_value": "5630 Cedar Dr",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 4,
+    "field": "site_address",
+    "old_value": "6301 Oak Ln",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 305,
+    "field": "installer_name",
+    "old_value": "BrightSky Energy",
+    "new_value": "BRIGHTSKY ENERGY",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 96,
+    "field": "site_address",
+    "old_value": "3222 Elm Ln",
+    "new_value": "3222 Elm Ln",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "partner",
+    "row_index": 127,
+    "field": "installer_name",
+    "old_value": "PhotonWorks",
+    "new_value": "PhotonWorks",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 112,
+    "field": "signing_status",
+    "old_value": "PENDING_SIGNATURE",
+    "new_value": "pending_signature",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 122,
+    "field": "document_name",
+    "old_value": "Solar_Agreement_PRJ-2024-00123.pdf",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 145,
+    "field": "document_name",
+    "old_value": "Solar_Agreement_PRJ-2024-00146.pdf",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 211,
+    "field": "project_reference",
+    "old_value": "PRJ-2024-00212",
+    "new_value": "prj-2024-00212",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 148,
+    "field": "envelope_reference",
+    "old_value": "ENV-8B1CEA17D3B4",
+    "new_value": "ENV-8B1CEA17D3B4",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 139,
+    "field": "document_name",
+    "old_value": "Solar_Agreement_PRJ-2024-00140.pdf",
+    "new_value": "Solar_Agreement_PRJ-2024-00140.pdf",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 164,
+    "field": "envelope_reference",
+    "old_value": "ENV-31BBA63E2CC7",
+    "new_value": "ENV-31BBA63E2CC7",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 25,
+    "field": "document_name",
+    "old_value": "Solar_Agreement_PRJ-2024-00026.pdf",
+    "new_value": "solar_agreement_prj-2024-00026.pdf",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 52,
+    "field": "signing_status",
+    "old_value": "NOT_SENT",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 64,
+    "field": "signed_date",
+    "old_value": "2020-10-21",
+    "new_value": "2020-10-21",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 77,
+    "field": "envelope_reference",
+    "old_value": "ENV-46DA1B5950AA",
+    "new_value": "ENV-46DA1B5950AA",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 175,
+    "field": "signed_date",
+    "old_value": "2021-02-02",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 402,
+    "field": "signed_date",
+    "old_value": "2020-08-07",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 237,
+    "field": "envelope_reference",
+    "old_value": "ENV-1360FA65D7A1",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 41,
+    "field": "project_reference",
+    "old_value": "PRJ-2024-00042",
+    "new_value": "prj-2024-00042",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 200,
+    "field": "envelope_reference",
+    "old_value": "ENV-89ED68B5B024",
+    "new_value": "ENV-89ED68B5B024",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 98,
+    "field": "signing_status",
+    "old_value": "NOT_SENT",
+    "new_value": "NOT_SENT",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 62,
+    "field": "project_reference",
+    "old_value": "PRJ-2024-00063",
+    "new_value": "PRJ-2024-00063",
+    "corruption_type": "status_variant",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 126,
+    "field": "envelope_reference",
+    "old_value": "ENV-E80FC0952E18",
+    "new_value": "ENV-E80FC0952E18",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 235,
+    "field": "envelope_reference",
+    "old_value": "ENV-9F20F1AB87B0",
+    "new_value": "ENV-9F20F1AB87B0",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 242,
+    "field": "signed_date",
+    "old_value": "2021-05-12",
+    "new_value": "None",
+    "corruption_type": "missing",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 479,
+    "field": "signing_status",
+    "old_value": "DECLINED",
+    "new_value": "DECLINED",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 322,
+    "field": "envelope_reference",
+    "old_value": "ENV-147F34F4F847",
+    "new_value": "env-147f34f4f847",
+    "corruption_type": "text_formatting",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 326,
+    "field": "signing_status",
+    "old_value": "DECLINED",
+    "new_value": "DECLINED",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  },
+  {
+    "source": "document",
+    "row_index": 184,
+    "field": "envelope_reference",
+    "old_value": "ENV-07ACE30A255E",
+    "new_value": "ENV-07ACE30A255E",
+    "corruption_type": "numeric_drift",
+    "timestamp": "2026-09-27T15:48:41.420628"
+  }
+]
