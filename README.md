@@ -6,13 +6,15 @@
 ![Tests](https://img.shields.io/badge/tests-51_passed-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-> **Trained and evaluated on real public internet datasets — no mock data.**
-> Entity resolution, anomaly detection, and AI-assisted review over messy,
-> real-world records, wrapped in a CRM-style reviewer workbench with Light/Dark mode.
+> **Built using public real-world datasets and documented synthetic
+> enterprise-style records for multi-source review simulation.**
+> Entity resolution, anomaly detection, and evidence-first human review over
+> messy records, wrapped in a CRM-style reviewer workstation with Light/Dark mode.
 
 *Ringkasan: platform review data proyek solar multi-sumber — entity resolution,
-deteksi anomali, dan review berbantuan AI — dilatih dan dievaluasi murni
-dengan dataset publik asli dari internet, plus aplikasi review gaya CRM.*
+deteksi anomali, dan review manusia berbasis evidence — memakai dataset publik
+asli dari internet plus record enterprise sintetis yang didokumentasikan,
+plus aplikasi review gaya CRM.*
 
 ![Board light mode](docs/screenshots/board_light.png)
 ![Board dark mode](docs/screenshots/board_dark.png)
@@ -65,12 +67,34 @@ yang didokumentasikan terbuka.*
 ## 3. How the program works
 
 ```
-FILE SOURCES (CSV/XLSX) → INGESTION → VALIDATION → PostgreSQL
-                                                     ↓
-              ┌──────────── DATA QUALITY ←── AI / ML models ────┐
-              ↓                                                 ↓
-        REVIEW QUEUE (Board app) ──→ HUMAN REVIEW ──→ AUDIT LOG ──→ FEEDBACK
+INCOMING RECORD → VALIDATION → CROSS-SOURCE COMPARISON → DISCREPANCY ENGINE
+                                                          ↓
+                                              PRIORITY → REVIEWER WORKSTATION
+                                                          ↓
+                                   APPROVE / REJECT / CLARIFICATION
+                                                          ↓
+                                     CORRECTION → SYNC HANDOFF (file)
+                                                          ↓
+                                              QA SAMPLING → AUDIT TRAIL
 ```
+
+The reviewer never stares at a bare probability. Every case opens with a
+field-by-field evidence table (CRM vs ERP vs Partner vs signed Document),
+per-field verdicts (`MATCH` / `FORMAT` / `REVIEW` / `CONFLICT` / `MISSING`),
+the authoritative source per conflict (`signed_document > crm > erp > partner`,
+see `config/models.yaml → review.source_priority`), and a recommended action.
+The model suggests (`P(match)` + routing) — only the reviewer decides.
+
+Case lifecycle: `NEW → IN_REVIEW → {WAITING_CLARIFICATION | RESOLVED | REJECTED}`,
+with `REOPENED` and file-based `SYNCED` handoff of approved corrections
+(`data/processed/correction_handoff.csv`). Decisions require a structured
+**reason code** (`SOURCE_CONFLICT`, `MISSING_INFORMATION`, `DUPLICATE`,
+`INCORRECT_VALUE`, `FORMATTING_ISSUE`, `UNABLE_TO_VERIFY`, `OTHER`) plus a
+written explanation — free text alone is not analyzable. A deterministic 10%
+sample of resolved cases goes to **QA second review** (agreement rate tracked).
+The dashboard reports reviewer operations (open cases, SLA breaches at 72h,
+avg resolution time, clarification/rework rates) and data-quality scores
+(completeness, conflict rate, duplicate rate) next to the ML metrics.
 
 1. **Ingest** (`src/ingestion/`): file adapters convert each source export to
    one canonical schema, preserving provenance (`source_system`,
@@ -112,6 +136,10 @@ calibrated on validation, single source in `config/models.yaml`
 Honest reading: dirt destroys recall — exactly why the review queue exists
 instead of forced auto-decisions. Ground truth: 2,982 positives / 2,042
 negatives (incl. 58 hard negatives), leakage checks 0 violations.
+The released classifier is trained once (`src/matching/train_model.py`) and
+shipped as `models/entity_matcher_v1.joblib` + meta (version, feature schema,
+metrics); the app loads the artifact and never re-fits. Model suggestion ≠
+data truth — the UI says so on every review case.
 
 **Anomaly detection — NAB labeled series (point-level vs. hand labels):**
 
@@ -150,9 +178,11 @@ Light/Dark toggle, guaranteed text contrast in both modes.
   comparison + related pairs
 - **AI review notes** — classification chip, field-evidence table, P(match),
   clarification draft, uncertainty statement
-- **Record a decision** — MATCH / NON_MATCH / CLARIFICATION, reason required
-- **Audit log** — every decision with reviewer, reason, model version, timestamp
-- **Model performance** — persisted NAB + dirty-ER tables + limitations
+- **Record a decision** — MATCH / NON_MATCH / CLARIFICATION, reason code + explanation required, case lifecycle enforced
+- **Correction proposal** — authoritative-source values, reviewer-approved, exported as sync handoff file
+- **QA second review** — deterministic 10% sample, AGREE/DISAGREE verdicts, agreement rate
+- **Audit log** — every decision with reviewer, reason code, model version, timestamp + case states
+- **Model performance** — persisted NAB + dirty-ER tables + limitations (model loaded from versioned artifact, never re-fit in the app)
 
 *Ringkasan: aplikasi review gaya CRM dengan 7 layar, mode terang/gelap,
 antrean review tersimpan, bukti per sumber berdampingan, dan audit log.*
@@ -162,8 +192,9 @@ antrean review tersimpan, bukti per sumber berdampingan, dan audit log.*
 ## 6. Reproduce it
 
 ```bash
-pip install -r requirements.txt
-python -m unittest discover -s tests -v        # 51 tests
+pip install -r requirements.txt                # includes streamlit, pyyaml, openpyxl
+python -m unittest discover -s tests -v        # 76 tests
+python src/matching/train_model.py             # (re-)build models/entity_matcher_v1.joblib
 streamlit run app/dashboard.py                 # Board workbench
 ```
 
@@ -193,11 +224,14 @@ Panduan Colab 3 level tersedia.*
 
 ```
 notebooks/  00_colab_setup + 01–10 research notebooks
-src/        ingestion · preprocessing · matching (+real_data.py) · anomaly · ai
+src/        ingestion · preprocessing · matching · anomaly · ai
+            matching/real_data.py (messy public datasets) · matching/train_model.py
+            review/ (evidence · cases lifecycle · qa · metrics)
 app/        dashboard.py (Board workbench)
+models/     entity_matcher_v1.joblib + meta (versioned artifact, committed)
 sql/        schema.sql (12 tables) · migrate.py
-config/     models.yaml (single threshold source)
-tests/      51 tests (unit + data + integration + app)
+config/     models.yaml (thresholds + source priority + reason codes + QA/SLA)
+tests/      76 tests (unit + data + integration + app + review workflow)
 reports/    suitability · dictionary · lineage · evaluations · validation gates
 docs/       COLAB_RUNNING_GUIDE.md · screenshots/
 data/       raw/ (git-ignored) · processed/ (generated, committed)

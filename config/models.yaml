@@ -24,3 +24,62 @@ thresholds:
   # P(match) < manual_review_low -> NON_MATCH, else MANUAL_REVIEW
   manual_review_low: 0.30
   note: initial operating points; re-calibrate on validation split (notebook 06) before any real use
+
+# Reviewer workflow policy (single source of truth — UI and src/ read this).
+review:
+  # Lower number = more authoritative when sources conflict.
+  source_priority:
+    signed_document: 1
+    crm: 2
+    erp: 3
+    partner: 4
+  source_labels:
+    signed_document: Signed document
+    crm: CRM
+    erp: ERP
+    partner: Partner
+  # Field-level rules used by the discrepancy engine.
+  field_rules:
+    system_size_kw:
+      kind: numeric
+      tolerance: 1.0        # |a-b| <= 1 kW  -> acceptable
+      review_above: 2.0     # |a-b| > 2 kW   -> HIGH severity
+      unit: kW
+    customer_name:
+      kind: text
+      match_threshold: 0.92 # normalized similarity for MATCH verdict
+    installer:
+      kind: text
+      match_threshold: 0.85
+    address:
+      kind: text
+      match_threshold: 0.80
+    status:
+      kind: category
+      # Statuses that mean the same thing across sources.
+      equivalents:
+        - [Completed, ACTIVE, SIGNED]
+        - [In Progress, PENDING, PENDING_SIGNATURE]
+        - [Pending, PENDING, NOT_SENT]
+        - [On Hold, SUSPENDED, DECLINED]
+  # Structured reason codes (free text alone is not analyzable).
+  reason_codes:
+    - SOURCE_CONFLICT
+    - MISSING_INFORMATION
+    - DUPLICATE
+    - INCORRECT_VALUE
+    - FORMATTING_ISSUE
+    - UNABLE_TO_VERIFY
+    - OTHER
+  # Case lifecycle + SLA.
+  lifecycle:
+    initial: NEW
+    sla_hours: 72
+  # QA second-review sampling (deterministic hash sampling, fraction 0-1).
+  qa:
+    sample_fraction: 0.10
+  # Queue priority weights (priority = w_sev*severity + w_unc*uncertainty + w_age*age_days).
+  priority_weights:
+    severity: 10.0
+    uncertainty: 5.0
+    age_days: 0.5

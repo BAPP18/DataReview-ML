@@ -1,0 +1,23 @@
+{
+  "model_name": "entity_matcher",
+  "model_version": "v1.0",
+  "model_type": "logistic_regression",
+  "feature_schema_version": "v1.0",
+  "features": [
+    "customer_similarity",
+    "installer_similarity",
+    "address_similarity",
+    "city_match",
+    "state_match",
+    "capacity_diff",
+    "status_match"
+  ],
+  "training_rows": 3516,
+  "training_date": "2026-09-28",
+  "metrics": {
+    "precision": 0.7282,
+    "recall": 1.0,
+    "f1": 0.8427,
+    "roc_auc": 0.8331
+  }
+}

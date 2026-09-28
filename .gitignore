@@ -7,4 +7,11 @@ data/raw/*
 models/*.pkl
 models/*.joblib
 !models/README.md
+# Versioned model artifact is committed deliberately (loaded by the app).
+!models/entity_matcher_v1.joblib
 *.log
+# Runtime reviewer data (created by using the app; never commit).
+data/processed/review_cases.jsonl
+data/processed/review_decisions.json
+data/processed/qa_reviews.jsonl
+data/processed/correction_handoff*.csv
