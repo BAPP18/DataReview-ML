@@ -151,3 +151,23 @@ CREATE TABLE IF NOT EXISTS ingestion_runs (
     completed_at TIMESTAMP,
     status VARCHAR(50)
 );
+
+-- Indexes for the columns the review workflow queries most often.
+CREATE INDEX IF NOT EXISTS idx_source_records_lookup
+    ON source_records (source_system, source_record_id);
+CREATE INDEX IF NOT EXISTS idx_source_records_master
+    ON source_records (master_project_id);
+CREATE INDEX IF NOT EXISTS idx_entity_matches_pair
+    ON entity_matches (pair_id);
+CREATE INDEX IF NOT EXISTS idx_entity_matches_masters
+    ON entity_matches (master_id_a, master_id_b);
+CREATE INDEX IF NOT EXISTS idx_review_queue_status
+    ON review_queue (status);
+CREATE INDEX IF NOT EXISTS idx_review_queue_pair
+    ON review_queue (pair_id);
+CREATE INDEX IF NOT EXISTS idx_review_decisions_pair
+    ON review_decisions (pair_id);
+CREATE INDEX IF NOT EXISTS idx_audit_when
+    ON audit_logs ("when");
+CREATE INDEX IF NOT EXISTS idx_anomalies_record
+    ON anomalies (source_system, source_record_id);

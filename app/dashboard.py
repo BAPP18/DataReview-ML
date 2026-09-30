@@ -232,6 +232,42 @@ span[data-baseweb="tag"] {{
     background: {P["card_bg"]} !important; border: 1px solid {P["border"]} !important;
 }}
 span[data-baseweb="tag"] span {{ color: {P["ink"]} !important; }}
+div[data-testid="stSelectbox"] div[data-baseweb="select"],
+div[data-testid="stSelectbox"] div[data-baseweb="select"] div,
+div[data-testid="stMultiSelect"] div[data-baseweb="select"],
+div[data-testid="stMultiSelect"] div[data-baseweb="select"] div {{
+    background-color: {P["input_bg"]} !important;
+}}
+div[data-baseweb="menu"], div[data-baseweb="menu"] div,
+div[data-baseweb="popover"], div[data-baseweb="popover"] div {{
+    background-color: {P["card_bg"]} !important;
+}}
+div[data-baseweb="menu"] span, div[data-baseweb="popover"] span {{
+    color: {P["ink"]} !important;
+}}
+header[data-testid="stHeader"] {{
+    background: {P["page_bg"]} !important; color: {P["ink"]} !important;
+}}
+header[data-testid="stHeader"] button,
+div[data-testid="stToolbar"] button {{
+    color: {P["ink"]} !important;
+}}
+div[data-testid="stToolbar"] {{ background: transparent !important; }}
+div[data-testid="stDecoration"] {{
+    background: {P["accent"]} !important; background-image: none !important;
+}}
+div[data-testid="stAppDeployButton"] {{ display: none !important; }}
+div[data-testid="stStatusWidget"] {{ color: {P["ink"]} !important; }}
+div[data-testid="stExpander"] details {{
+    background: {P["card_bg"]} !important;
+    border: 1px solid {P["border"]} !important; border-radius: 10px;
+}}
+div[data-testid="stExpander"] summary,
+div[data-testid="stExpander"] summary span,
+div[data-testid="stExpander"] summary p {{
+    color: {P["ink"]} !important;
+}}
+div[data-testid="stExpander"] summary svg {{ fill: {P["muted"]} !important; }}
 """
 st.markdown(f"<style>{WIDGET_CSS}</style>", unsafe_allow_html=True)
 
@@ -267,13 +303,29 @@ def route_of(prob):
     return "MANUAL_REVIEW"
 
 
+def _read_csv(path, what):
+    try:
+        return pd.read_csv(path)
+    except FileNotFoundError:
+        st.error(f"Data tidak ditemukan: {what} ({path}). "
+                 "Jalankan notebook 01–04 atau unduh data sesuai docs/COLAB_RUNNING_GUIDE.md.")
+        st.stop()
+    except pd.errors.EmptyDataError:
+        st.error(f"File kosong: {what} ({path}). Ganti dengan file yang valid lalu reload.")
+        st.stop()
+    except Exception as e:
+        st.error(f"Gagal memuat {what}: {e}. "
+                 "Pastikan file tidak corrupt dan memiliki header yang benar.")
+        st.stop()
+
+
 @st.cache_data
 def load_tables():
-    master = pd.read_csv(os.path.join(OUTPUT_DIR, "master_projects.csv"))
-    pairs = pd.read_csv(os.path.join(OUTPUT_DIR, "entity_pairs.csv"))
-    features = pd.read_csv(os.path.join(OUTPUT_DIR, "pairwise_features.csv")).fillna(0)
-    ai = pd.read_csv(os.path.join(OUTPUT_DIR, "ai_reviewer_output.csv"))
-    canonical = pd.read_csv(os.path.join(OUTPUT_DIR, "canonical_source_records.csv"))
+    master = _read_csv(os.path.join(OUTPUT_DIR, "master_projects.csv"), "master projects")
+    pairs = _read_csv(os.path.join(OUTPUT_DIR, "entity_pairs.csv"), "entity pairs")
+    features = _read_csv(os.path.join(OUTPUT_DIR, "pairwise_features.csv"), "pairwise features").fillna(0)
+    ai = _read_csv(os.path.join(OUTPUT_DIR, "ai_reviewer_output.csv"), "AI reviewer output")
+    canonical = _read_csv(os.path.join(OUTPUT_DIR, "canonical_source_records.csv"), "canonical records")
     sources = {}
     try:
         sources["crm"] = pd.read_csv(os.path.join(OUTPUT_DIR, "crm_export_corrupted.csv"))
@@ -431,11 +483,39 @@ def goto(page):
     st.rerun()
 
 
+def _set_theme(mode):
+    st.session_state.ui_theme = mode
+    try:
+        st._config.set_option("theme.base", mode.lower())
+    except Exception:
+        pass
+    st.rerun()
+
+
+def _do_search():
+    # Runs as the search box callback: stash the query and clear the box,
+    # so the navigation below fires exactly once (no rerun loop).
+    st.session_state.pending_search = (st.session_state.get("global_search") or "").strip()
+    st.session_state.global_search = ""
+
+
 # ---------------- pages ----------------
 
 def page_dashboard(master, queue, canonical, sources, cases, decisions, qa_reviews):
     st.markdown("## Pipeline overview")
     st.markdown('<p class="small-note">Live figures from the current data snapshot.</p>', unsafe_allow_html=True)
+
+    if st.session_state.get("show_onboarding", True):
+        with st.expander("Panduan cepat — cara memakai workbench ini", expanded=False):
+            st.markdown(
+                "1. **Review queue** — pilih antrean (Needs review), urutkan by priority.\n"
+                "2. **AI review notes** — baca field comparison + sumber otoritatif, bukan probabilitasnya.\n"
+                "3. **Record a decision** — pilih MATCH / NON_MATCH / CLARIFICATION + reason code.\n"
+                "4. **QA second review** — 10% kasus terverifikasi ulang otomatis.\n"
+                "5. **Audit log** — semua keputusan tercatat dengan alasan dan versi model.")
+            if st.button("Tutup panduan"):
+                st.session_state.show_onboarding = False
+                st.rerun()
 
     route_counts = queue["route"].value_counts()
     auto = int(route_counts.get("AUTO_MATCH", 0))
@@ -531,6 +611,22 @@ def _conflict_rate_cached(queue):
     return float(material.mean()) if len(queue) else 0.0
 
 
+@st.cache_data
+def _nab_labeled_series():
+    """Machine-temperature series with hand-labeled anomaly flags (for the chart)."""
+    import json
+    nab_dir = os.path.join(BASE_DIR, "data", "raw", "nab")
+    key = "realKnownCause/machine_temperature_system_failure.csv"
+    df = pd.read_csv(os.path.join(nab_dir, key), parse_dates=["timestamp"])
+    df = df.sort_values("timestamp").reset_index(drop=True)
+    windows = json.load(open(os.path.join(nab_dir, "labels", "combined_windows.json")))
+    df["label"] = 0
+    for start, end in windows.get(key, []):
+        s, e = pd.to_datetime(start), pd.to_datetime(end)
+        df.loc[(df["timestamp"] >= s) & (df["timestamp"] <= e), "label"] = 1
+    return df
+
+
 VIEWS = {
     "Needs review": {"route": ["MANUAL_REVIEW"], "classification": []},
     "High risk": {"route": ["MANUAL_REVIEW"], "classification": ["ENTITY_MISMATCH"]},
@@ -544,7 +640,7 @@ def page_queue(queue):
     st.markdown("## Review queue")
     st.markdown('<p class="small-note">Ground-truth labels are hidden here by design — route on model evidence, then decide.</p>', unsafe_allow_html=True)
 
-    view = st.segmented_control("Saved view", list(VIEWS.keys()), default="Needs review")
+    view = st.selectbox("Saved view", list(VIEWS.keys()), index=0)
     spec = VIEWS[view]
 
     f1, f2, f3 = st.columns(3)
@@ -573,15 +669,17 @@ def page_queue(queue):
         q = q.sort_values("match_probability")
 
     limit = st.slider("Rows shown", 25, 300, 75)
+    sla_h = CFG["review"]["lifecycle"]["sla_hours"]
     view_df = q.head(limit).copy()
+    view_df["sources"] = view_df["source_a"] + " ↔ " + view_df["source_b"]
     view_df["route"] = view_df["route"].apply(lambda r: pill(r, ROUTE_PILL.get(r, "gray")))
     view_df["classification"] = view_df["classification"].apply(lambda c: pill(c, CLASS_PILL.get(c, "gray")))
     view_df["case"] = view_df["case_status"].apply(lambda s: pill(s, STATUS_PILL.get(s, "gray")))
-    view_df["sla"] = view_df["sla_breach"].apply(lambda b: pill("SLA BREACH", "red") if b else "")
+    view_df["sla"] = [f"{pill('BREACH', 'red')} {a:.0f}h" if b else f"{a:.0f}h / {sla_h}h"
+                      for a, b in zip(view_df["age_days"], view_df["sla_breach"])]
     st.write(f"Showing {len(view_df)} of {len(q)} matching pairs")
-    crm_table(view_df[["pair_id", "source_a", "source_b", "case", "route", "classification",
-                        "match_probability", "priority", "age_days", "sla",
-                        "customer_similarity", "installer_similarity", "address_similarity"]])
+    crm_table(view_df[["pair_id", "sources", "case", "route", "classification",
+                        "match_probability", "priority", "age_days", "sla"]])
 
     st.download_button("Export filtered view (CSV)",
                        q.to_csv(index=False).encode(),
@@ -971,6 +1069,22 @@ def page_model_performance():
     else:
         st.info("nab_labeled_eval.csv not found — run notebook 07.")
 
+    st.markdown("### Anomaly shape — machine temperature (NAB, labeled)")
+    st.markdown('<p class="small-note">Real sensor series. Red markers = hand-labeled anomaly windows. '
+                'Zoom/drag untuk inspeksi — pola inilah yang harus ditangkap detektor.</p>', unsafe_allow_html=True)
+    try:
+        import plotly.express as px
+        series = _nab_labeled_series()
+        fig = px.line(series, x="timestamp", y="value", title="Machine temperature with labeled anomalies")
+        anom = series[series["label"] == 1]
+        fig.add_scatter(x=anom["timestamp"], y=anom["value"], mode="markers",
+                        name="labeled anomaly", marker=dict(color="red", size=6))
+        st.plotly_chart(fig)
+    except ImportError:
+        st.info("plotly belum terpasang — jalankan: pip install plotly")
+    except Exception as e:
+        st.info(f"Seri NAB belum tersedia ({e}) — unduh via notebooks/00_colab_setup.ipynb.")
+
     st.markdown("### Limitations")
     p = os.path.join(REPORT_DIR, "phase9_final_evaluation.json")
     try:
@@ -1011,30 +1125,34 @@ def main():
         with tb1:
             st.markdown('<span class="brand">◧ Board</span>', unsafe_allow_html=True)
         with tb2:
-            q = st.text_input("Search", placeholder="Cari pair ID (PAIR-…) atau project ID (PRJ-…)…",
-                              label_visibility="collapsed")
+            st.text_input("Search", placeholder="Cari pair ID (PAIR-…) atau project ID (PRJ-…)…",
+                          label_visibility="collapsed", key="global_search",
+                          on_change=_do_search)
         with tb3:
-            theme = st.segmented_control("Tampilan", ["Light", "Dark"],
-                                         default=st.session_state.ui_theme,
-                                         label_visibility="collapsed")
-    if theme != st.session_state.ui_theme:
-        st.session_state.ui_theme = theme
-        try:
-            st._config.set_option("theme.base", theme.lower())
-        except Exception:
-            pass
-        st.rerun()
+            # Two plain buttons (not a segmented control): their colors are
+            # pinned to the palette, so labels stay readable in both modes.
+            b1, b2 = st.columns(2)
+            with b1:
+                if st.button("Light", key="theme_light",
+                             type="primary" if st.session_state.ui_theme == "Light" else "secondary",
+                             width="stretch"):
+                    _set_theme("Light")
+            with b2:
+                if st.button("Dark", key="theme_dark",
+                             type="primary" if st.session_state.ui_theme == "Dark" else "secondary",
+                             width="stretch"):
+                    _set_theme("Dark")
 
-    if q:
-        q = q.strip()
-        if q in pairs["pair_id"].tolist():
-            st.session_state.selected_pair = q
+    query = st.session_state.pop("pending_search", "")
+    if query:
+        if query in pairs["pair_id"].tolist():
+            st.session_state.selected_pair = query
             goto("AI review notes")
-        elif q in master["project_id"].tolist():
-            st.session_state.selected_project = q
+        elif query in master["project_id"].tolist():
+            st.session_state.selected_project = query
             goto("Project evidence")
         else:
-            st.warning(f"Tidak ditemukan: {q}")
+            st.warning(f"Tidak ditemukan: {query}. Gunakan format PAIR-000001 atau PRJ-2024-00001.")
 
     # ---- sidebar module navigation ----
     if "nav" not in st.session_state:
@@ -1048,7 +1166,7 @@ def main():
             for item in items:
                 if st.button(item, key=f"nav_{item}",
                              type="primary" if st.session_state.nav == item else "secondary",
-                             use_container_width=True):
+                             width="stretch"):
                     goto(item)
         st.markdown("---")
         st.markdown(f'<p class="small-note">Model {CFG["model"]["version"]} · '

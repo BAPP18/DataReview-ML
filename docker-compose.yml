@@ -1,0 +1,40 @@
+# Board workbench + optional PostgreSQL in one command:
+#   docker compose up --build
+# App: http://localhost:8501 (reads data/processed mounted below).
+# DB: optional; the app runs file-based without it (see sql/migrate.py to load).
+
+services:
+  app:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data/processed:/app/data/processed:ro
+      - ./config:/app/config:ro
+    environment:
+      - PGHOST=db
+      - PGPORT=5432
+      - PGDATABASE=solar_review
+      - PGUSER=postgres
+      - PGPASSWORD=${PGPASSWORD:-postgres}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${PGPASSWORD:-postgres}
+      - POSTGRES_DB=solar_review
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

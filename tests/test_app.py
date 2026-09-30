@@ -103,9 +103,19 @@ class TestApp(unittest.TestCase):
         with open(APP, encoding="utf-8") as f:
             src = f.read()
         for selector in ["stBaseButton-secondary", "stBaseButton-primary",
-                         "stSegmentedControl", "stTextInput",
-                         'data-baseweb="select"', 'data-baseweb="menu"']:
+                         "stTextInput",
+                         'data-baseweb="select"', 'data-baseweb="menu"',
+                         'data-baseweb="popover"',
+                         'stHeader', 'stToolbar', 'stExpander']:
             self.assertIn(selector, src, f"missing widget override: {selector}")
+
+    def test_theme_toggle_is_button_based(self):
+        # Segmented-control option labels went invisible in dark mode, so the
+        # theme switch must be plain buttons (fully palette-pinned).
+        with open(APP, encoding="utf-8") as f:
+            src = f.read()
+        self.assertIn('key="theme_light"', src)
+        self.assertIn('key="theme_dark"', src)
 
 
 if __name__ == "__main__":
