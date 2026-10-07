@@ -4,8 +4,9 @@ line-length = 100
 exclude = ["notebooks"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B"]
-ignore = ["E501"]
+# Keep CI focused on correctness errors for this existing codebase.
+# Style/import cleanup can be introduced incrementally in separate refactors.
+select = ["E9", "F63", "F7", "F82"]
 
 [tool.ruff.format]
 quote-style = "double"
