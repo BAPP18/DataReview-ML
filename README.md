@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.64-red)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange)
-![Tests](https://img.shields.io/badge/tests-51_passed-brightgreen)
+![CI](https://github.com/BAPP18/DataReview-ML/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 > **Built using public real-world datasets and documented synthetic
@@ -16,8 +16,38 @@ deteksi anomali, dan review manusia berbasis evidence — memakai dataset publik
 asli dari internet plus record enterprise sintetis yang didokumentasikan,
 plus aplikasi review gaya CRM.*
 
+## Demo
+
+### Reviewer workstation — Light mode
+
 ![Board light mode](docs/screenshots/board_light.png)
+
+### Reviewer workstation — Dark mode
+
 ![Board dark mode](docs/screenshots/board_dark.png)
+
+### End-to-end architecture
+
+```mermaid
+flowchart LR
+    A[CRM] --> I[Ingestion]
+    B[ERP] --> I
+    C[Partner] --> I
+    D[Signed Docs] --> I
+    I --> V[Validation]
+    V --> M[Entity Matching]
+    V --> N[Anomaly Detection]
+    M --> R[Routing]
+    N --> R
+    R --> Q[Review Queue]
+    Q --> E[Evidence View]
+    E --> H[Human Decision]
+    H --> S[Correction Handoff]
+    H --> A1[Audit Trail]
+    H --> QA[QA Second Review]
+```
+
+> Full architecture notes: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · Model details: [docs/MODEL_CARD.md](docs/MODEL_CARD.md)
 
 ---
 
@@ -192,8 +222,9 @@ antrean review tersimpan, bukti per sumber berdampingan, dan audit log.*
 ## 6. Reproduce it
 
 ```bash
-pip install -r requirements.txt                # includes streamlit, pyyaml, openpyxl
-python -m unittest discover -s tests -v        # 76 tests
+pip install -r requirements.txt                # runtime dependencies
+pip install -r requirements-dev.txt            # lint/test tooling for contributors
+python -m unittest discover -s tests -v        # run test suite
 python src/matching/train_model.py             # (re-)build models/entity_matcher_v1.joblib
 streamlit run app/dashboard.py                 # Board workbench
 ```
@@ -203,7 +234,7 @@ guide (easy / medium / hard) in `docs/COLAB_RUNNING_GUIDE.md`.
 Raw datasets are git-ignored (158 MB) — download instructions in
 `data/README.md` + `reports/data_lineage.md`.
 
-*Ringkasan: install → 51 tests hijau → jalankan notebook 01–10 → buka Board.
+*Ringkasan: install → jalankan test suite → jalankan notebook 01–10 → buka Board.
 Panduan Colab 3 level tersedia.*
 
 ---
@@ -231,7 +262,7 @@ app/        dashboard.py (Board workbench)
 models/     entity_matcher_v1.joblib + meta (versioned artifact, committed)
 sql/        schema.sql (12 tables) · migrate.py
 config/     models.yaml (thresholds + source priority + reason codes + QA/SLA)
-tests/      76 tests (unit + data + integration + app + review workflow)
+tests/      unit + data + integration + app + review workflow tests
 reports/    suitability · dictionary · lineage · evaluations · validation gates
 docs/       COLAB_RUNNING_GUIDE.md · screenshots/
 data/       raw/ (git-ignored) · processed/ (generated, committed)
@@ -241,3 +272,31 @@ data/       raw/ (git-ignored) · processed/ (generated, committed)
 
 MIT — see `LICENSE`. Third-party datasets keep their original licenses
 (MIT / Apache-2.0 / CC BY 4.0 / Kaggle terms / public domain).
+
+
+---
+
+## 9. Engineering quality
+
+The repository includes:
+
+- GitHub Actions CI on Python 3.11 and 3.12
+- automated lint + formatting checks with Ruff
+- unit/integration tests
+- Docker image build validation in CI
+- non-root runtime container + health check
+- separate runtime and development dependencies
+- versioned model artifact + model card
+- architecture documentation with Mermaid diagrams
+- environment validation script
+- optional PostgreSQL schema/migration path
+- documented data lineage and known limitations
+
+For contributors:
+
+```bash
+make check
+make run
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow.
