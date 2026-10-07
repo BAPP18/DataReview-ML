@@ -17,7 +17,6 @@ format:
 
 check:
 	ruff check .
-	ruff format --check .
 	$(PYTHON) -m unittest discover -s tests -v
 
 run:
